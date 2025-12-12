@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系人管理系统</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1><i class="fas fa-address-book"></i> 联系人管理系统</h1>
+            <div class="header-actions">
+                <button id="export-btn" class="btn btn-primary"><i class="fas fa-download"></i> 导出</button>
+                <input type="file" id="import-file" accept=".xlsx, .xls" style="display: none;">
+                <button id="import-btn" class="btn btn-secondary"><i class="fas fa-upload"></i> 导入</button>
+            </div>
+        </header>
+
+        <!-- 主要内容 -->
+        <main class="main-content">
+            <!-- 左侧：联系人列表 -->
+            <aside class="contact-list-section">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="搜索联系人...">
+                    <button id="search-btn" class="btn-search"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">全部联系人</button>
+                    <button class="filter-tab" data-filter="bookmarked">书签联系人</button>
+                </div>
+
+                <div class="contacts-container">
+                    <ul id="contacts-list" class="contacts-list">
+                        <!-- 联系人列表将通过JavaScript动态生成 -->
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- 右侧：联系人详情和添加表单 -->
+            <section class="contact-details-section">
+                <div class="section-header">
+                    <h2 id="detail-title">添加联系人</h2>
+                    <button id="add-contact-btn" class="btn btn-primary"><i class="fas fa-plus"></i> 新建联系人</button>
+                </div>
+
+                <form id="contact-form" class="contact-form">
+                    <input type="hidden" id="contact-id">
+                    
+                    <div class="form-group">
+                        <label for="contact-name">姓名 <span class="required">*</span></label>
+                        <input type="text" id="contact-name" name="name" required placeholder="请输入联系人姓名">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-avatar">头像</label>
+                        <input type="file" id="contact-avatar" accept="image/*">
+                        <img id="avatar-preview" class="avatar-preview" src="" alt="头像预览" style="display: none;">
+                    </div>
+
+                    <!-- 联系方式列表 -->
+                    <div class="form-group">
+                        <label>联系方式</label>
+                        <div id="contact-methods" class="contact-methods">
+                            <!-- 默认添加一个电话和一个邮箱 -->
+                            <div class="contact-method-item">
+                                <select class="method-type">
+                                    <option value="phone">电话</option>
+                                    <option value="email">邮箱</option>
+                                    <option value="address">地址</option>
+                                    <option value="wechat">微信</option>
+                                    <option value="qq">QQ</option>
+                                </select>
+                                <input type="text" class="method-value" placeholder="请输入联系方式">
+                                <button type="button" class="btn-remove-method"><i class="fas fa-times"></i></button>
+                            </div>
+                            <div class="contact-method-item">
+                                <select class="method-type">
+                                    <option value="phone">电话</option>
+                                    <option value="email" selected>邮箱</option>
+                                    <option value="address">地址</option>
+                                    <option value="wechat">微信</option>
+                                    <option value="qq">QQ</option>
+                                </select>
+                                <input type="text" class="method-value" placeholder="请输入联系方式">
+                                <button type="button" class="btn-remove-method"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" id="add-method-btn" class="btn btn-small btn-secondary"><i class="fas fa-plus"></i> 添加联系方式</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-note">备注</label>
+                        <textarea id="contact-note" rows="3" placeholder="请输入备注信息"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="delete-btn" class="btn btn-danger" style="display: none;"><i class="fas fa-trash"></i> 删除联系人</button>
+                        <button type="button" id="cancel-btn" class="btn btn-secondary">取消</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> 保存</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- 导入库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- 主脚本 -->
+    <script src="script.js"></script>
+</body>
+</html>
